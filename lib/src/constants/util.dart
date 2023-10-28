@@ -24,7 +24,7 @@ class Util {
   static getRandomNumber(int min, int max) {
     Random random = Random();
     int randomNumber = random.nextInt(max) + min;
-    debugPrint('getRandomNumber $randomNumber');
+    // debugPrint('getRandomNumber $randomNumber');
     return randomNumber;
   }
 

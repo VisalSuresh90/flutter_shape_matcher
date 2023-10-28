@@ -1,6 +1,6 @@
 name: flutter_shape_matcher
-description: An engaging Flutter package designed to entertain and educate young children aged under 5. With a collection of vibrant shapes like squares, circles, pentagons, and more, this package provides an interactive and fun learning experience. Children can drag and match the correct shapes to corresponding containers, enhancing their shape recognition and problem-solving skills. It's an ideal parent-child puzzle game for early cognitive development, blending entertainment with essential growth.
-version: 0.0.1
+description: This Flutter package serves as a vital parental gate for children under 5, combining entertainment and education.
+version: 0.0.2
 homepage: https://github.com/VisalSuresh90/flutter_shape_matcher.git
 
 environment:

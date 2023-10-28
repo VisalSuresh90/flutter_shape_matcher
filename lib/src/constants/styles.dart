@@ -15,18 +15,18 @@ const triColor = Color(0xFFa4eac0);
 const kSecondaryColor = Color(0xFFF5F6FC);
 const kBgLightColor = Color(0xFFF2F4FC);
 const kBgDarkColor = Color(0xFFEBEDFA);
-//freight loc tab dialog
+
 const kTextBoxFillColor = Color(0xFFEDEDED);
 const kTableRowColor = Color(0xFFFFF0F8);
 const kDividerColor = Color(0xFFE91C6E);
 const kRowDividerColor = Color(0xFFCCCCCC);
 
-//Relocation
 const kPartColor = Color(0xFF707070);
 const kDisabledColor = Color(0xFFCCCCCC);
 //-------------------------------
 const kBadgeColor = Color(0xFFEE376E);
 const kGrayColor = Color(0xFF8793B2);
+const kLightGrayColor = Color(0xFFCCCCCC);
 const kTitleTextColor = Color(0xFF30384D);
 const kTextColor = Color(0xFF4D5875);
 const kTableTextColor = Color(0xFF707070);

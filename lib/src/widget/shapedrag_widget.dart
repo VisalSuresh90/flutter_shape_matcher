@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shape_matcher/src/model/shape.dart';
 import 'package:flutter_shape_matcher/src/shapes/circle_shape.dart';
 
+import '../anim/bounce_in_down.dart';
+import '../anim/bounce_in_left.dart';
+import '../anim/bounce_in_right.dart';
+import '../anim/bounce_in_up.dart';
 import '../constants/styles.dart';
 import '../constants/util.dart';
 import '../shapes/cone_shape.dart';
@@ -28,11 +32,41 @@ import 'shape_widget.dart';
 class ShapeDragWidget extends StatefulWidget {
   final Function() onSuccess;
   final Function() onFailure;
+  final String title;
+  final String subtitle;
+  final double titleFontSize;
+  final double messageFontSize;
+  final Color titleColor;
+  final Color messageColor;
+  final Color backgroundColor;
+  final Color borderColor;
+  final double borderWidth;
+  final double borderRadius;
+  final Color dragAcceptBoxColor;
+  final Color dragAcceptBoxBorderColor;
+  final double dragAcceptBoxBorderSize;
+  final Color dragAcceptShapeColor;
+  final int animationDurationInMilliseconds;
 
   const ShapeDragWidget({
     Key? key,
     required this.onSuccess,
     required this.onFailure,
+    required this.title,
+    required this.subtitle,
+    required this.titleFontSize,
+    required this.messageFontSize,
+    required this.titleColor,
+    required this.messageColor,
+    required this.backgroundColor,
+    required this.borderColor,
+    required this.borderWidth,
+    required this.borderRadius,
+    required this.dragAcceptBoxColor,
+    required this.dragAcceptBoxBorderColor,
+    required this.dragAcceptBoxBorderSize,
+    required this.dragAcceptShapeColor,
+    required this.animationDurationInMilliseconds,
   }) : super(key: key);
 
   @override
@@ -40,10 +74,6 @@ class ShapeDragWidget extends StatefulWidget {
 }
 
 class _ShapeDragWidgetState extends State<ShapeDragWidget> {
-  var rectShape = Shape(imageShape: ImageShape.RECTANGLE);
-  var triShape = Shape(imageShape: ImageShape.TRIANGLE);
-  var circleShape = Shape(imageShape: ImageShape.CIRCLE);
-  //var shapes = <Widget>[];
   var selectedShapes = <ShapeWidget>[];
   late ShapeWidget taskShape;
 
@@ -56,81 +86,87 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
   @override
   Widget build(BuildContext context) => _widgetView(context);
 
-  Card _widgetView(BuildContext context) => Card(
-        elevation: 1,
-        child: Container(
-          padding: const EdgeInsets.all(8.0),
-          width: MediaQuery.of(context).size.width * .75,
-          decoration: BoxDecoration(
-            border: Border.all(width: 2, color: kTextLabelColor),
-            borderRadius: BorderRadius.circular(12),
-            color: kBlackColor,
-            // color: widget.bgColor,
-          ),
-          child: Column(children: [
-            _dragAcceptSection(),
-            Expanded(
-                child: SizedBox(
-              child: Center(
-                child: _textSection(),
-              ),
-            )),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: selectedShapesChildren()),
-          ]),
+  Container _widgetView(BuildContext context) => Container(
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          border:
+              Border.all(width: widget.borderWidth, color: widget.borderColor),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          color: widget.backgroundColor,
         ),
+        child: Column(children: [
+          _dragAcceptSection(),
+          Expanded(
+              child: SizedBox(
+            child: Center(
+              child: _textSection(),
+            ),
+          )),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: selectedShapesChildren()),
+        ]),
       );
-  List<Widget> selectedShapesChildren() {
-    List<Widget> children = [];
-    for (var i = 0; i < selectedShapes.length; i++) {
-      children.add(_draggableShape(selectedShapes[i]));
-    }
-    return children;
-  }
-
-  // List<Widget> selectedShapesChildren1() {
+  // List<Widget> selectedShapesChildren() {
   //   List<Widget> children = [];
   //   for (var i = 0; i < selectedShapes.length; i++) {
-  //     if (i == 0) {
-  //       children.add(BounceInLeft(
+  //     // children.add(_draggableShape(selectedShapes[i]));
+  //     children.add(
+  //       BounceInUpAnimation(
   //         child: _draggableShape(selectedShapes[i]),
-  //         duration: const Duration(milliseconds: 1000),
-  //       ));
-  //     } else if (i == 1) {
-  //       children.add(BounceInUp(
-  //         child: _draggableShape(selectedShapes[i]),
-  //         duration: const Duration(milliseconds: 1000),
-  //       ));
-  //     } else if (i == 2) {
-  //       children.add(BounceInDown(
-  //         child: _draggableShape(selectedShapes[i]),
-  //         duration: const Duration(milliseconds: 1000),
-  //       ));
-  //     } else {
-  //       children.add(BounceInRight(
-  //         child: _draggableShape(selectedShapes[i]),
-  //         duration: const Duration(milliseconds: 1000),
-  //       ));
-  //     }
+  //       ),
+  //     );
   //   }
   //   return children;
   // }
 
-  Column _textSection() => const Column(
+  List<Widget> selectedShapesChildren() {
+    List<Widget> children = [];
+    for (var i = 0; i < selectedShapes.length; i++) {
+      if (i == 0) {
+        children.add(BounceInLeftAnimation(
+          durationInMilliseconds: widget.animationDurationInMilliseconds,
+          child: _draggableShape(selectedShapes[i]),
+        ));
+      } else if (i == 1) {
+        children.add(BounceInUpAnimation(
+          durationInMilliseconds: widget.animationDurationInMilliseconds,
+          child: _draggableShape(selectedShapes[i]),
+        ));
+      } else if (i == 2) {
+        children.add(BounceInDownAnimation(
+          durationInMilliseconds: widget.animationDurationInMilliseconds,
+          child: _draggableShape(selectedShapes[i]),
+        ));
+      } else {
+        children.add(BounceInRightAnimation(
+          durationInMilliseconds: widget.animationDurationInMilliseconds,
+          child: _draggableShape(selectedShapes[i]),
+        ));
+      }
+    }
+    return children;
+  }
+
+  Column _textSection() => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         // ignore: prefer_const_literals_to_create_immutables
         children: [
           Text(
-            'Match the Shape',
+            widget.title,
             style: TextStyle(
-                fontSize: 24,
-                color: kBlueGradientColor,
-                fontWeight: FontWeight.bold),
+              fontSize: widget.titleFontSize,
+              color: widget.titleColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          Text(
-            'Drag the correct shape into above box',
-            style: TextStyle(fontSize: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              widget.subtitle,
+              style: TextStyle(
+                  fontSize: widget.messageFontSize, color: widget.messageColor),
+            ),
           ),
         ],
       );
@@ -166,7 +202,7 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
           },
           onLeave: (data) {
             widget.onFailure();
-            resetTask();
+            // resetTask();
             debugPrint("onLeave");
           },
         ),
@@ -179,9 +215,13 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
           height: 100,
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-              border: Border.all(width: 1, color: kGrayColor),
-              borderRadius: BorderRadius.circular(8),
-              color: kGrayColor),
+            border: Border.all(
+              width: widget.dragAcceptBoxBorderSize,
+              color: widget.dragAcceptBoxBorderColor,
+            ),
+            borderRadius: BorderRadius.circular(8),
+            color: widget.dragAcceptBoxColor,
+          ),
           child: Center(child: taskShape),
         ),
       );
@@ -208,28 +248,29 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
     );
   }
 
-  getShapes() {
-    var shapes = <Widget>[];
-    shapes.add(const CircleShape());
-    shapes.add(const ConeShape());
-    shapes.add(const CrossShape());
-    shapes.add(const CubeShape());
-    shapes.add(const CylinderShape());
-    shapes.add(const DiamondShape());
-    shapes.add(const DropShape());
-    shapes.add(const EllipseShape());
-    shapes.add(const HeartShape());
-    shapes.add(const HeptagonShape());
-    shapes.add(const HexagonShape());
-    shapes.add(const NonganoneShape());
-    shapes.add(const OctagoneShape());
-    shapes.add(const OvalShape());
-    shapes.add(const PentagonShape());
-    shapes.add(const RectangleShape());
-    shapes.add(const SixPointedStarShape());
-    shapes.add(const SquareShape());
-    shapes.add(const StarShape());
-    shapes.add(const TriangleShape());
+  List<Widget> getShapes() {
+    var shapes = <Widget>[
+      const CircleShape(),
+      const ConeShape(),
+      const CrossShape(),
+      const CubeShape(),
+      const CylinderShape(),
+      const DiamondShape(),
+      const DropShape(),
+      const EllipseShape(),
+      const HeartShape(),
+      const HeptagonShape(),
+      const HexagonShape(),
+      const NonganoneShape(),
+      const OctagoneShape(),
+      const OvalShape(),
+      const PentagonShape(),
+      const RectangleShape(),
+      const SixPointedStarShape(),
+      const SquareShape(),
+      const StarShape(),
+      const TriangleShape(),
+    ];
     return shapes;
   }
 
@@ -244,7 +285,7 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
     int randomNumber = Util.getRandomNumber(1, 4);
     taskShape = ShapeWidget(
       imageShape: selectedShapes[randomNumber - 1].imageShape,
-      color: kWhiteColor.withOpacity(.15),
+      color: widget.dragAcceptShapeColor,
       size: 60,
     );
   }
