@@ -120,6 +120,8 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
   //   return children;
   // }
 
+  /// This is a function that set the selected random shapes into the options list with some animation.
+  /// Returns the List of added Widgets.
   List<Widget> selectedShapesChildren() {
     List<Widget> children = [];
     for (var i = 0; i < selectedShapes.length; i++) {
@@ -248,6 +250,8 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
     );
   }
 
+  /// This is a function that returns the complete list of available shapes in this package.
+  /// Returns the List of widgets.
   List<Widget> getShapes() {
     var shapes = <Widget>[
       const CircleShape(),
@@ -274,6 +278,7 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
     return shapes;
   }
 
+  /// This is a function is to reset the task image shape and shown options image.
   void resetTask() {
     setState(() {
       selectRandomShapes();
@@ -281,6 +286,7 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
     });
   }
 
+  /// This is a function is to set the task image shape.
   void setTaskShape() {
     int randomNumber = Util.getRandomNumber(1, 4);
     taskShape = ShapeWidget(
@@ -290,6 +296,7 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
     );
   }
 
+  /// This is a function is to select some random shapes.
   void selectRandomShapes() {
     selectedShapes.clear();
     while (selectedShapes.length <= 3) {
@@ -310,6 +317,10 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
     }
   }
 
+  /// This is a function that returns the shape position in the selectedShapes list.
+  /// Given the [imageShape] for find out the position of passed Image enum in the selectedShapes list.
+  /// [imageShape] : enum value
+  /// Returns the position if it exist in list otherwise returns -1.
   int getShapeWidgetPosition(ImageShape imageShape) {
     for (var i = 0; i < selectedShapes.length; i++) {
       if (selectedShapes[i].imageShape == imageShape) {
@@ -319,6 +330,10 @@ class _ShapeDragWidgetState extends State<ShapeDragWidget> {
     return -1;
   }
 
+  /// This is a function that returns the Image enum.
+  /// Given the [randomNumber] for find out the Image shape enum
+  /// [randomNumber] : integer value and should be greater than 0
+  /// Returns the Image shape enum value.
   ImageShape getImageShape(int randomNumber) {
     switch (randomNumber) {
       case 1:

@@ -5,3 +5,7 @@
 ## 0.0.2
 
 Incorporated the comprehensive codebase, integrating novel animations, and introduced a sample example, alongside enhancements to the README.md file.
+
+## 0.0.3
+
+Added funtional doumentation.

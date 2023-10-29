@@ -50,6 +50,9 @@ class SampleScreen extends StatelessWidget {
     );
   }
 
+  /// This is a function that populate the snackbar
+  /// [context]: BuildContext
+  /// [message]: String value
   void showSnackBar(BuildContext context, String message) {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     scaffoldMessenger.showSnackBar(

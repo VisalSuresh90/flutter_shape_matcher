@@ -1,6 +1,6 @@
 name: flutter_shape_matcher
 description: This Flutter package serves as a vital parental gate for children under 5, combining entertainment and education.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/VisalSuresh90/flutter_shape_matcher.git
 
 environment:
